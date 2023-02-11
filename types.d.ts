@@ -1,9 +1,9 @@
-// TODO: move to a models file
+// TODO: Should move into models
 interface Home {
   address: string;
   owner: string;
   currency: string;
-  floor?: number;
+  floors?: number;
   id: number;
   picture: string;
   price: number;

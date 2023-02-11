@@ -7,7 +7,7 @@ const JSONtoHomes = (data: any): Home[] => {
       address: home['address'],
       owner: home['owner'],
       currency: home['currency'],
-      floor: home['floor'] || null,
+      floors: home['floors'] || null,
       picture: home['picture'],
       price: home['price'],
       rooms: home['rooms'],
