@@ -1,25 +1,58 @@
-import { ReactNode } from 'react';
+import { useRouter } from 'next/router';
+import { useMemo } from 'react';
 import { HomeIcon } from './HomeIcon';
 
-const MenuEntry = ({ href, icon, title }: {
-  href: string
-  icon: ReactNode
-  title: ReactNode
-}) => {
+interface MenuItem {
+  title: string;
+  href: string;
+  icon: JSX.Element;
+}
+
+interface MenuEntryProps {
+  item: MenuItem;
+  selected: boolean;
+}
+
+const MenuEntry = (props: MenuEntryProps) => {
+  const {
+    item: { title, href, icon },
+    selected,
+  } = props;
+
+  const textColor = useMemo(
+    () => (selected ? 'text-blue-500' : 'text-gray-500'),
+    [selected]
+  );
+
   return (
-    <a className="flex items-center justify-start p-2 my-0 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 " href={href}>
-      <span className="text-left">
-        {icon}
-      </span>
-      <span className="mx-4 font-normal text-md">
-        {title}
-      </span>
+    <a
+      className={
+        '\
+      flex items-center \
+      justify-start \
+      p-2 \
+      my-0 \
+      font-thin \
+      transition-colors \
+      duration-200 \
+      hover:text-gray-800 ' + textColor
+      }
+      href={href}
+    >
+      <span className="text-left">{icon}</span>
+      <span className="mx-4 font-normal text-md">{title}</span>
     </a>
   );
 };
 
 export const SideMenu = () => {
-  const menu = [
+  const router = useRouter();
+
+  const route = useMemo(() => {
+    return router.route;
+  }, [router]);
+
+  const menu: MenuItem[] = [
     {
       title: 'Homes',
       icon: <HomeIcon />,
@@ -45,9 +78,13 @@ export const SideMenu = () => {
                 Some catchy punchline
               </h2>
             </div>
-            {menu.map(entry =>
-              <MenuEntry key={entry.title} {...entry} />
-            )}
+            {menu.map((entry) => (
+              <MenuEntry
+                key={entry.title}
+                item={entry}
+                selected={entry.href === route}
+              />
+            ))}
           </nav>
         </div>
       </div>

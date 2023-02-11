@@ -15,7 +15,6 @@ const Homes: NextPage = () => {
     const getHomes = async () => {
       setLoading(true);
       const homes = await fetchHomes();
-      console.log(homes);
       setHomes(homes);
       setLoading(false);
     };
