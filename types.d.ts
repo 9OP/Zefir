@@ -1,3 +1,4 @@
+// TODO: move to a models file
 interface Home {
   address: string;
   owner: string;
