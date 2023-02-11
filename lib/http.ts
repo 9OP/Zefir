@@ -18,7 +18,7 @@ const JSONtoHomes = (data: any): Home[] => {
 };
 
 export const fetchHomes = async (): Promise<Home[]> => {
-  const res = await fetch('api/home');
+  const res = await fetch('api/homes');
   const json = await res.json();
   const homes = JSONtoHomes(json);
   return homes;
