@@ -1,23 +1,29 @@
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
-
 import { HomeList } from '../components/HomeList';
 import { Layout } from '../components/Layout';
 import { AnimatedLoader } from '../components/AnimatedLoader';
+import { useEffect, useState } from 'react';
+import { fetchHomes } from '../lib/http';
 
 const Homes: NextPage = () => {
-  const [homes, setHomes] = useState();
+  // Should use a hook for data fetching instead of fetching in useEffect
+  // const { data: homes, isLoading } = useHomes();
   const [isLoading, setLoading] = useState(false);
+  const [homes, setHomes] = useState<Home[]>([]);
 
   useEffect(() => {
-    fetch('api/home')
-      .then((res) => res.json())
-      .then((data: Home[]) => setHomes(data));
-    setLoading(false);
-  }, [homes]);
+    const getHomes = async () => {
+      setLoading(true);
+      const homes = await fetchHomes();
+      setHomes(homes);
+      setLoading(false);
+    };
 
-  if (isLoading) return <AnimatedLoader />
-  if (!homes) return <p>No home to show, please reload the page!</p>
+    getHomes();
+  }, []);
+
+  if (isLoading) return <AnimatedLoader />;
+  if (!homes) return <p>No home to show, please reload the page!</p>;
 
   return (
     <Layout>
@@ -25,6 +31,5 @@ const Homes: NextPage = () => {
     </Layout>
   );
 };
-
 
 export default Homes;
