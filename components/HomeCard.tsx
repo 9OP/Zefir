@@ -1,9 +1,13 @@
+import { formatPrice } from '../lib/format';
+
 export const HomeCard = (home: Home) => (
   <div className="w-full p-4 mb-1 overflow-hidden bg-white border rounded shadow-xl cursor-pointer">
     <div className="flex justify-between w-full pb-3">
       <div className="flex flex-row justify-between w-full">
         <span className="text-sm font-bold">{home.address}</span>
-        <span className="text-sm font-bold text-blue-900">{home.price}</span>
+        <span className="text-sm font-bold text-blue-900">
+          {formatPrice(home.price, home.currency)}
+        </span>
       </div>
     </div>
     <img

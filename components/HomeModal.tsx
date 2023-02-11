@@ -1,3 +1,5 @@
+import { formatPrice } from '../lib/format';
+
 export const HomeModal = (home: Home) => (
   <div className="w-full p-4 mb-1 overflow-hidden">
     <img className="w-full bg-cover" src={home.picture} alt="home picture" />
@@ -12,8 +14,8 @@ export const HomeModal = (home: Home) => (
           <span className="mr-2 font-medium">Address:</span> {home.address}
         </div>
         <div className="mb-2 text-sm">
-          <span className="mr-2 font-medium">Price:</span> {home.price}{' '}
-          {home.currency}
+          <span className="mr-2 font-medium">Price:</span>
+          {formatPrice(home.price, home.currency)}
         </div>
         <div className="mb-2 text-sm">
           <span className="mr-2 font-medium">Surface:</span> {home.surface}m²
